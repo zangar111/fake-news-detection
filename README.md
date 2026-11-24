@@ -5,7 +5,22 @@
 
 Курсовая работа по дисциплине «Глубокое обучение». Модель на основе двунаправленной LSTM (BiLSTM) определяет, является ли новость правдивой (REAL) или фейковой (FAKE). Результат сравнивается с классическим базовым методом TF-IDF + логистическая регрессия.
 
-## Датасет
+## 🇰🇿 Қазақ тіліндегі модель (`fake_news_bilstm_kz.ipynb`)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zangar111/fake-news-detection/blob/main/fake_news_bilstm_kz.ipynb)
+
+Бұл нұсқада BiLSTM моделі **тікелей қазақ тіліндегі мәтінде** үйретіледі және қазақша жаңалықты бағалайды.
+
+1. «Fake or Real News» жиынынан теңгерілген 2000 жаңалық алынады (1000 FAKE + 1000 REAL, тақырып + алғашқы 60 сөз).
+2. Мәтіндер **NLLB-200** (`facebook/nllb-200-distilled-600M`, `kaz_Cyrl`) моделімен қазақ тіліне аударылып, `kz_news.csv` файлына сақталады.
+3. Қазақша тазалау: кіші әріп, сілтемелерді алып тастау, кирилл әріптері (ә ғ қ ң ө ұ ү һ і) сақталады.
+4. TF-IDF + LogReg және BiLSTM қазақша мәтінде үйретіліп, салыстырылады.
+5. `predict('қазақша мәтін')` функциясы жаңалықтың ШЫН/ЖАЛҒАН екенін ықтималдығымен шығарады.
+
+**Іске қосу:** Colab → Runtime → Change runtime type → **T4 GPU** → Run all. Аударма шамамен 5–10 минут, үйрету 1 минуттан аз.
+Шығатын файлдар: `kz_news.csv`, `results_kz.csv`, `kz_lengths.png`, `kz_training.png`, `kz_confusion.png`, `best_bilstm_kz.pt`.
+
+## Датасет (ағылшынша бастапқы нұсқа)
 **Fake or Real News**: 6335 англоязычных новостей (`title`, `text`, `label`), около половины фейковых. Загружается автоматически в ноутбуке:
 `https://raw.githubusercontent.com/lutzhamel/fake-news/master/data/fake_or_real_news.csv`
 
@@ -44,7 +59,8 @@ jupyter notebook fake_news_bilstm.ipynb
 
 ## Структура
 ```
-fake_news_bilstm.ipynb   ноутбук с кодом и выводами
+fake_news_bilstm.ipynb     ағылшынша нұсқа
+fake_news_bilstm_kz.ipynb  қазақ тіліндегі модель (NLLB аударма + BiLSTM)
 results.csv              итоговые метрики моделей
 figures/                 графики (fig_* и kz_*)
 ```
